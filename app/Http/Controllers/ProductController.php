@@ -18,6 +18,11 @@ class ProductController extends Controller
         return Product::orderBy('created_at', 'DESC')->get();
     }
 
+    public function read($id)
+    {
+        return Product::find($id);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

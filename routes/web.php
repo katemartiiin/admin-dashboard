@@ -24,7 +24,10 @@ Route::get('/products', function () {
     return view('pages.products');
 });
 Route::get('/new', function () {
-    return view('pages.newProduct');
+    return view('pages.products');
+});
+Route::get('/edit', function () {
+    return view('pages.products');
 });
 
 // Authentication routes

@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::prefix('/product')->group( function () {
+    Route::get('/{id}', [ProductController::class, 'read']);
     Route::post('/store', [ProductController::class, 'store']);
     Route::put('/{id}', [ProductController::class, 'update']);
     Route::delete('/{id}', [ProductController::class, 'destroy']);
