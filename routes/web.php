@@ -23,6 +23,9 @@ Route::get('/dashboard', function () {
 Route::get('/products', function () {
     return view('pages.products');
 });
+Route::get('/new', function () {
+    return view('pages.newProduct');
+});
 
 // Authentication routes
 Route::post('/login', 'App\Http\Controllers\AuthController@login');

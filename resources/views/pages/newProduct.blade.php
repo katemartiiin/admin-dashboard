@@ -1,5 +1,5 @@
 @extends('layout.default')
-@section('title', 'Products')
+@section('title', 'New Product')
 @section('content')
     <!-- Check if user is logged in -->
     @if (!isset(Auth::user()->email))
