@@ -5,18 +5,25 @@
         <p><strong>Product Description: </strong>{{ product.description }}</p>
         <p><strong>Date and Time: </strong>{{ product.date_time }}</p>
         <p><strong>Created by: </strong>{{ product.created_by }}</p>
+        <router-link to="/products/edit">Edit</router-link>
+        <button @click="removeProduct()">Delete</button>
     </div>
 </template>
 <script>
 export default {
-    props: ['product']
+    props: ['product'],
+    methods: {
+        removeProduct() {
+            axios.delete('/api/product/' + this.product.id)
+            .then(response => {
+                if (response.status == 200) {
+                    this.$emit('itemchanged');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    }
 }
 </script>
-<style scoped>
-div {
-    width: 500px;
-}
-p {
-    font-size: 14px;
-}
-</style>
