@@ -23,6 +23,15 @@ class ProductController extends Controller
         return Product::find($id);
     }
 
+    public function search($keyword){
+        return Product::where('description', 'LIKE', "%{$keyword}%")
+        ->orWhere('name', 'LIKE', "%{$keyword}%")->get();
+    }
+
+    public function category($category){
+        return Product::where('category', $category)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
