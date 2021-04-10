@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductImages;
 use Illuminate\Support\Carbon;
 
 class ProductController extends Controller
@@ -21,6 +22,13 @@ class ProductController extends Controller
     public function read($id)
     {
         return Product::find($id);
+    }
+    public function getImages($id){
+        $images = ProductImages::where('product_id', $id)->orderBy('created_at', 'DESC')->get();
+        foreach ($images as $data) {
+            $data->images = json_decode($data->images);
+        }
+        return response()->json(['images' => $images]);
     }
 
     public function search($keyword){
@@ -69,6 +77,41 @@ class ProductController extends Controller
         $newProduct->save();
 
         return $newProduct;
+    }
+    public function images(Request $request){
+        $lastId = count(Product::all());
+        if ($request->file('files')){
+            $pictures = [];
+
+            foreach ($request->file('files') as $file) {
+                $filename = '/images/' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $filename);
+                $pictures[] = $filename;
+            }
+
+            ProductImages::create([
+                'images' => json_encode($pictures),
+                'product_id' => $lastId
+            ]);
+        }
+        return response()->json(['message' => 'Images uploaded']);
+    }
+    public function addImages(Request $request, $id){
+        if ($request->file('files')){
+            $pictures = [];
+
+            foreach ($request->file('files') as $file) {
+                $filename = '/images/' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $filename);
+                $pictures[] = $filename;
+            }
+
+            ProductImages::create([
+                'images' => json_encode($pictures),
+                'product_id' => $id
+            ]);
+        }
+        return response()->json(['message' => 'Images uploaded']);
     }
 
     /**
@@ -144,5 +187,15 @@ class ProductController extends Controller
         }
 
         return "Product not found.";
+    }
+    public function deleteImages($id) {
+        $existingImages = ProductImages::find($id);
+
+        if ($existingImages) {
+            $existingImages->delete();
+            return "Images successfully deleted.";
+        }
+
+        return "Images not found.";
     }
 }
