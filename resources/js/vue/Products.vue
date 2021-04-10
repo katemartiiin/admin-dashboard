@@ -2,15 +2,24 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <select id="slct_category" class="custom-select" @change="productCategory()">
-                    <option value="All">All</option>
-                    <option v-for="(category, index) in categories" :key="index" :value="category.category">
-                    {{ category.category }}
-                    </option>
-                </select>
-                <input type="text" id="keyword" class="form-control mt-3" placeholder="Name or description" />
-                <button @click="searchKeyword()">Search</button>
-                
+                <div class="row">
+                    <div class="col-md-6 px-3 my-2">
+                        <select id="slct_category" class="custom-select" @change="productCategory()">
+                            <option disabled selected>Category</option>
+                            <option value="All">All</option>
+                            <option v-for="(category, index) in categories" :key="index" :value="category.category">
+                            {{ category.category }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 px-3 my-2 d-flex">
+                    <input class="form-control" type="text" id="keyword" placeholder="Search product name or description" aria-label="Search">
+                    <button class="btn btn-sidebar" @click="searchKeyword()">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                    </div>
+                </div>
+            
                 <paginate
                     name="products"
                     :list="products"
@@ -119,5 +128,13 @@ ul.paginate-links > li.number:hover, .left-arrow:hover, .right-arrow:hover{
 }
 ul.paginate-links > li.number.active > a {
     color: black !important;
+}
+ul.paginate-links > li.number {
+    background-color: #ffffff;
+    padding: 3px 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
 }
 </style>
