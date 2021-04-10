@@ -32,7 +32,7 @@
                     <input type="text" class="form-control my-2 rounded-0" name="useremail" placeholder="Username or email" />
                     <input type="password" class="form-control my-2 rounded-0" name="password" placeholder="Password" />
                     <input type="checkbox" class="my-2 rounded-0" name="remember" /> Remember me?
-                    <input type="submit" class="form-control my-4 rounded-0 bg-dark text-white" name="login" value="Login" />
+                    <input type="submit" class="form-control my-4 rounded-0 text-white dashboard-login" name="login" value="Login"/>
                 </form>
             </div>
         </div>

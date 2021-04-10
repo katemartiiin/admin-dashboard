@@ -1,0 +1,7 @@
+.dashboard-login {
+    background-color: #4b545c;
+}
+.dashboard-login:hover{
+    cursor: pointer;
+    background-color: #343a40;
+}
