@@ -24,12 +24,22 @@ class ProductController extends Controller
     }
 
     public function search($keyword){
+        if ($keyword == 'all'){
+            return Product::orderBy('created_at', 'DESC')->get();
+        }
         return Product::where('description', 'LIKE', "%{$keyword}%")
         ->orWhere('name', 'LIKE', "%{$keyword}%")->get();
     }
 
     public function category($category){
+        if ($category == 'All'){
+            return Product::orderBy('created_at', 'DESC')->get();
+        }
         return Product::where('category', $category)->get();
+    }
+
+    public function categories(){
+        return Product::select('category')->groupBy('category')->get();
     }
 
     /**

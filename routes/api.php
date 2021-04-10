@@ -20,11 +20,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/products', [ProductController::class, 'index']);
+
 Route::prefix('/product')->group( function () {
     Route::get('/{id}', [ProductController::class, 'read']);
-    Route::get('/search/{keyword}', [ProductController::class, 'search']);
-    Route::get('/category/{category}', [ProductController::class, 'category']);
     Route::post('/store', [ProductController::class, 'store']);
     Route::put('/{id}', [ProductController::class, 'update']);
     Route::delete('/{id}', [ProductController::class, 'destroy']);
 });
+
+Route::get('/categories', [ProductController::class, 'categories']);
+Route::get('/category/{category}', [ProductController::class, 'category']);
+
+Route::get('/search/{keyword}', [ProductController::class, 'search']);
