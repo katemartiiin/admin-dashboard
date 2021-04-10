@@ -1,11 +1,9 @@
 <template>
     <div class="my-3">
-        <div v-for="(product, index) in products" :key="index">
-            <list-item
-                :product="product"
+        <list-item
+                :product="products"
                 v-on:itemchanged="$emit('reloadList')"
                 />
-        </div>
     </div>
 </template>
 <script>

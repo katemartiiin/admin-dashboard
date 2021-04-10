@@ -10,10 +10,20 @@
                 </select>
                 <input type="text" id="keyword" class="form-control mt-3" placeholder="Name or description" />
                 <button @click="searchKeyword()">Search</button>
-                <list-view 
-                    :products="products" 
-                    v-on:reloadList="getProducts()"
-                    />
+                
+                <paginate
+                    name="products"
+                    :list="products"
+                    :per="3"
+                    >
+                    <li v-for="product in paginated('products')">
+                        <list-view 
+                        :products="product" 
+                        v-on:reloadList="getProducts()"
+                        />
+                    </li>
+                </paginate>
+                <paginate-links for="products" :show-step-links="true" class="d-flex"></paginate-links>
             </div>
         </div>
     </div>
@@ -27,7 +37,8 @@ export default {
     data: function () {
         return {
             products: [],
-            categories: []
+            categories: [],
+            paginate: ['products']
         }
     },
     methods: {
@@ -86,3 +97,27 @@ export default {
     }
 }
 </script>
+<style scoped>
+ul, li {
+    list-style: none !important;
+    padding-inline-start: 0 !important;
+}
+</style>
+<style>
+ul.paginate-links > li.disabled > a {
+    color: red;
+}
+ul.paginate-links > li.number > a {
+    color: blue;
+}
+ul.paginate-links > li.number {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+ul.paginate-links > li.number:hover, .left-arrow:hover, .right-arrow:hover{
+    cursor: pointer;
+}
+ul.paginate-links > li.number.active > a {
+    color: black !important;
+}
+</style>
