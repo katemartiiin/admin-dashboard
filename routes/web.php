@@ -26,7 +26,7 @@ Route::get('/products', function () {
 Route::get('/new', function () {
     return view('pages.products');
 });
-Route::get('/edit', function () {
+Route::get('/product/{id}', function () {
     return view('pages.products');
 });
 

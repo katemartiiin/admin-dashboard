@@ -5,6 +5,7 @@
         <p><strong>Product Description: </strong>{{ product.description }}</p>
         <p><strong>Date and Time: </strong>{{ product.date_time }}</p>
         <p><strong>Created by: </strong>{{ product.created_by }}</p>
+        <router-link :to="{ name: 'edit', params: {id: product.id } }">Edit</router-link>
         <button @click="removeProduct()">Delete</button>
     </div>
 </template>

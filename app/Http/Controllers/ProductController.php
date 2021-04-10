@@ -86,10 +86,22 @@ class ProductController extends Controller
         $existingProduct = Product::find($id);
 
         if ($existingProduct) {
-            $existingProduct->name = $request->product['name'] ? $request->product['name'] : $existingProduct->name;
-            $existingProduct->category = $request->product['category'] ? $request->product['category'] : $existingProduct->category;
-            $existingProduct->description = $request->product['description'] ? $request->product['description'] : $existingProduct->description;
-            $existingProduct->date_time = $request->product['date_time'] ? $request->product['date_time'] : $existingProduct->date_time;
+            if ($request->product['name']){
+                $existingProduct->name = $request->product['name'] ? $request->product['name'] : $existingProduct->name;
+            }
+
+            if ($request->product['category']) {
+                $existingProduct->category = $request->product['category'] ? $request->product['category'] : $existingProduct->category;
+            }
+
+            if ($request->product['description']) {
+                $existingProduct->description = $request->product['description'] ? $request->product['description'] : $existingProduct->description;
+            }
+            
+            if ($request->product['date_time']) {
+                $existingProduct->date_time = $request->product['date_time'] ? $request->product['date_time'] : $existingProduct->date_time;
+            }
+            
             $existingProduct->save();
             return $existingProduct;
         }

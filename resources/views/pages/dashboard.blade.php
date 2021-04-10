@@ -20,7 +20,7 @@
                     <small class="my-auto float-right"><a href="{{url('/logout')}}">Logout</a></small>
                 </div>
                 <div class="product-form">
-                    <a class="btn btn-primary rounded-0" href="{{url('/product/new')}}"><small>Create Product</small></a>
+                    <a class="btn btn-primary rounded-0" href="{{url('/new')}}"><small>Create Product</small></a>
                 </div>
             </div>
         </div>

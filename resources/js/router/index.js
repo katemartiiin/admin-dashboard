@@ -16,8 +16,8 @@ export default {
             component: productForm
         },
         {
-            path: '/edit/',
-            name: 'Edit Product',
+            path: '/product/:id',
+            name: 'edit',
             component: editProduct
         }
     ]
