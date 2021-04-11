@@ -1,39 +1,80 @@
 <template>
-    <div class="border border-dark p-3 mx-auto">
-        <input type="text" id="product_name" :value="product.name" />
-        <input type="text" id="product_category" :value="product.category" />
-        <input type="text" id="product_description" :value="product.description" />
-        <input type="datetime-local" id="product_datetime" />
-        <input @change="imageChange()" type="file" name="image" ref="files" multiple />
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Images</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(picture, index) in pictures" :key="index">
-                    <td>{{ picture.id }}</td>
-                    <td>
-                        <img v-for="(img, index) in picture.images" :key="index" :src="img" width="100px" height="100px" />
-                    </td>
-                    <td><button @click="removeImages(picture.id)">Remove</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <button @click="updateProduct()">Update</button>
+    <div class="product-form col-md-12 py-4 px-3">
+        <h5 class="ml-2">Edit product</h5>
+        <div id="sOne" class="step--one px-5 pb-5 d-block mt-4">
+            <div class="row">
+                <div class="col-md-6 my-2">
+                    <label>Product Name:</label>
+                    <input type="text" class="form-control" id="prod_name" :value="product.name" placeholder="Enter product name" />
+                </div>
+                <div class="col-md-6 my-2">
+                    <label>Product Category:</label>
+                    <select id="product_category" class="custom-select">
+                        <option disabled selected>Select category</option>
+                        <option value="All">All</option>
+                        <option v-for="(category, index) in categories" :key="index" :value="category.category" :selected="product.category === category.category">
+                        {{ category.category }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6 my-2">
+                    <textarea class="form-control" placeholder="Enter product description" :value="product.description" id="prod_description"></textarea>
+                </div>
+            </div>
+            <button class="my-3 float-right update-btn bg-primary" prev="sOne" curr="sOne" next="sTwo">Next >></button>
+        </div>
+        <div id="sTwo" class="step--two d-none px-5 pb-5 mt-4">
+            <input @change="imageChange()" type="file" name="image" ref="files" class="my-5" multiple />
+            <table class="table table-borderless table-striped fs-14">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Images</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(picture, index) in pictures" :key="index">
+                        <td>
+                            <img v-for="(img, index) in picture.images" :key="index" :src="img" class="fluid" />
+                        </td>
+                        <td><button @click="removeImages(picture.id)" class="bg-transparent border-0"><i class="fa fa-trash text-danger"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="my-3 float-left prev-btn bg-secondary" prev="sOne" curr="sTwo"><< Prev</button>
+            <button class="my-3 float-right update-btn bg-primary" curr="sTwo" next="sThree">Next >></button>
+        </div>
+        <div id="sThree" class="step--three d-none px-5 pb-5 mt-4">
+            <label>Date and Time</label>
+            <input type="datetime-local" class="form-control" id="product_datetime" />
+            <button class="my-3 float-left prev-btn bg-secondary" prev="sTwo" curr="sThree"><< Prev</button>
+            <button @click="updateProduct()" class="update-btn bg-info float-right" curr="sThree" next="sThree">Update</button>
+        </div>
     </div>
 </template>
 <script>
+$(document).ready(function(){
+    $('.update-btn').click(function(){
+        var nxt = $(this).attr('next');
+        var curr = $(this).attr('curr');
+        $('#' + nxt).removeClass('d-none').addClass('d-block');
+        $('#' + curr).removeClass('d-block').addClass('d-none');
+    });
+    $('.prev-btn').click(function(){
+        var prev = $(this).attr('prev');
+        var curr = $(this).attr('curr');
+        $('#' + prev).removeClass('d-none').addClass('d-block');
+        $('#' + curr).removeClass('d-block').addClass('d-none');
+    });
+});
 import moment from 'moment';
 export default {
     data: function () {
         return {
             product: [],
             pictures: '',
-            images: []
+            images: [],
+            categories: []
         }
     },
     methods: {
@@ -56,9 +97,9 @@ export default {
             });
         },
         updateProduct() {
-            var name = document.getElementById('product_name').value;
+            var name = document.getElementById('prod_name').value;
             var category = document.getElementById('product_category').value;
-            var description = document.getElementById('product_description').value;
+            var description = document.getElementById('prod_description').value;
             var date_time = document.getElementById('product_datetime').value;
 
             var self = this;
@@ -125,10 +166,45 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        getCategories() {
+            axios.get('http://localhost:8000/api/categories')
+            .then(response => {
+                this.categories = response.data
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     },
     created() {
         this.getProduct();
+        this.getCategories();
     }
 }
 </script>
+<style scoped>
+.fluid {
+    width: 200px;
+    height: auto;
+}
+.fs-14{
+    font-size: 14px;
+}
+.product-form{
+    background-color: #ffffff;
+}
+label {
+    font-size: 14px;
+}
+input, select, textarea {
+    width: 75%;
+    display: block;
+}
+.update-btn, .prev-btn {
+    border: 0;
+    outline: none;
+    padding: 5px 15px;
+    border-radius: .25rem;
+}
+</style>
