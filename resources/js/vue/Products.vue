@@ -126,8 +126,11 @@ ul.paginate-links > li.number {
 ul.paginate-links > li.number:hover, .left-arrow:hover, .right-arrow:hover{
     cursor: pointer;
 }
+ul.paginate-links > li.number.active {
+    background-color: #0062cc;
+}
 ul.paginate-links > li.number.active > a {
-    color: black !important;
+    color: white !important;
 }
 ul.paginate-links > li.number {
     background-color: #ffffff;
