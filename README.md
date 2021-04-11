@@ -9,7 +9,7 @@ For development, you will need Composer, Laravel and Node.js installed in your e
 
 ### Default Admins
 
-This project will generate default admins that are defined in the seeder.
+This project will generate default admins that are defined in the UserSeeder.
 
 <strong>Admin Zero</strong> <br>
     Username: admin.zero<br>
