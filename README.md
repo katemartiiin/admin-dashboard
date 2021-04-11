@@ -1,6 +1,6 @@
 # Admin Dashboard
 
-This project is created for the PRAXXYS Laravel Web Developer Exam.
+This project is created for the Laravel Web Developer Exam using Laravel and VueJS.
 
 ---
 ## Requirements
