@@ -11,12 +11,12 @@ For development, you will need Composer, Laravel and Node.js installed in your e
 
 This project will generate default admins that are defined in the seeder.
 
-Admin Zero
+Admin Zero <br>
     Username: admin.zero
     Email: admin_zero@mail.com
     Password: admin0
 
-Admin One
+Admin One <br>
     Username: admin.one
     Email: admin_one@mail.com
     Password: admin1
