@@ -17,7 +17,7 @@ You may install the Laravel installer as a global Composer dependency:
 
 Navigate to the project folder then open your terminal.
 
-Rename the env file by running the command below.
+### Rename the env file by running the command below.
     $ mv .env.example .env
 
 Change the database configuration and save.
