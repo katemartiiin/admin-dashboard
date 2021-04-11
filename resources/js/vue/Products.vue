@@ -32,7 +32,7 @@
                         />
                     </li>
                 </paginate>
-                <paginate-links for="products" :show-step-links="true" class="d-flex"></paginate-links>
+                <paginate-links for="products" :show-step-links="true" class="d-flex my-5 float-right"></paginate-links>
             </div>
         </div>
     </div>
@@ -136,5 +136,6 @@ ul.paginate-links > li.number {
     width: 30px;
     height: 30px;
     text-align: center;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
 }
 </style>

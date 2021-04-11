@@ -1,7 +1,7 @@
 <template>
     <div class="product-form col-md-12 py-4 px-3">
         <h5 class="ml-2">New product</h5>
-        <div id="sOne" class="step--one px-5 pb-5 d-block">
+        <div id="sOne" class="step--one px-5 pb-5 d-block mt-4">
             <div class="row">
                 <div class="col-md-6 my-2">
                     <label>Product Name:</label>
@@ -24,20 +24,19 @@
             </div>
             <button class="my-3 float-right next-btn bg-primary" prev="sOne" curr="sOne" next="sTwo">Next >></button>
         </div>
-        <div id="sTwo" class="step--two d-none px-5 pb-5">
-            <div class="col-md-6 my-2">
-                <label>Date and Time</label>
-                <input type="datetime-local" class="form-control" v-model="product.date_time" />
-            </div>
+        <div id="sTwo" class="step--two d-none px-5 pb-5 mt-4">
+            <input @change="imageChange()" type="file" name="image" ref="files" class="my-5" multiple />
             <button class="my-3 float-left prev-btn bg-secondary" prev="sOne" curr="sTwo"><< Prev</button>
             <button class="my-3 float-right next-btn bg-primary" curr="sTwo" next="sThree">Next >></button>
         </div>
-        <div id="sThree" class="step--three d-none px-5 pb-5">
-            <input @change="imageChange()" type="file" name="image" ref="files" multiple />
+        <div id="sThree" class="step--three d-none px-5 pb-5 mt-4">
+            <div class="col-md-6 my-5">
+                <label>Date and Time</label>
+                <input type="datetime-local" class="form-control" v-model="product.date_time" />
+            </div>
             <button class="my-3 float-left prev-btn bg-secondary" prev="sTwo" curr="sThree"><< Prev</button>
-            <button @click="addItem()" class="next-btn bg-success" curr="sThree" next="sThree">Add</button>
+            <button @click="addItem()" class="next-btn bg-success float-right" curr="sThree" next="sThree">Add</button>
         </div>
-        <input type="hidden" v-model="product.created_by" />
     </div>
 </template>
 <script>
@@ -90,8 +89,15 @@ export default {
                 }
             }
 
+            let created_by = document.getElementById('created_by').value;
             axios.post('api/product/store', {
-                product: this.product
+                product: {
+                    name: this.product.name,
+                    category: this.product.category,
+                    description: this.product.description,
+                    date_time: this.product.date_time,
+                    created_by: created_by
+                }
             })
             .then( response => {
                 axios.post('api/images/', formData, config)

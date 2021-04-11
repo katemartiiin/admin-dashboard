@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,5 @@ Route::get('/categories', [ProductController::class, 'categories']);
 Route::get('/category/{category}', [ProductController::class, 'category']);
 
 Route::get('/search/{keyword}', [ProductController::class, 'search']);
+
+Route::get('/user', [AuthController::class, 'getUser']);

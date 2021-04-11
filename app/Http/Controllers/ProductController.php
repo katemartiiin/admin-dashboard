@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\ProductImages;
 use Illuminate\Support\Carbon;
@@ -79,7 +80,8 @@ class ProductController extends Controller
         return $newProduct;
     }
     public function images(Request $request){
-        $lastId = count(Product::all());
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'products'");
+        $nextId = $statement[0]->Auto_increment;
         if ($request->file('files')){
             $pictures = [];
 
@@ -91,7 +93,7 @@ class ProductController extends Controller
 
             ProductImages::create([
                 'images' => json_encode($pictures),
-                'product_id' => $lastId
+                'product_id' => $nextId - 1
             ]);
         }
         return response()->json(['message' => 'Images uploaded']);

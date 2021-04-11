@@ -115,6 +115,7 @@
           <div class="container-fluid">
             <!-- Main row -->
             <div class="row px-5">
+              <input type="hidden" id="created_by" value="{{ Auth::user()->username }}" />
               @yield('content')
             </div>
             <!-- /.row (main row) -->
