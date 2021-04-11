@@ -7,6 +7,20 @@ This project is created for the PRAXXYS Laravel Web Developer Exam.
 
 For development, you will need Composer, Laravel and Node.js installed in your environment.
 
+### Default Admins
+
+This project will generate default admins that are defined in the seeder.
+
+Admin Zero
+    Username: admin.zero
+    Email: admin_zero@mail.com
+    Password: admin0
+
+Admin One
+    Username: admin.one
+    Email: admin_one@mail.com
+    Password: admin1
+
 ### Laravel Installation
 
 You may install the Laravel installer as a global Composer dependency:
