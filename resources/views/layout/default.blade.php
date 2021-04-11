@@ -36,7 +36,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/logout')}}" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <a class="nav-link" href="{{url('/logout')}}" role="button">
             Log out
           </a>
         </li>
